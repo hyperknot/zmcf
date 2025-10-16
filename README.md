@@ -11,6 +11,7 @@ Core idea: the world has a base coverage (e.g., z12), with many rectangular patc
 **Note**: This was created by GPT-5 High. I'm really impressed by it.
 I think this might be one of those well-defined, limited algorithmic problems where LLMs beat even competitive programmers.
 It definitely beat me, it'd have taken me weeks to even start studying this area, not even talking about an implementation.
+The README was generated as well, but I edited it in sections.
 
 <details>
 <summary>Original input to LLM</summary>
