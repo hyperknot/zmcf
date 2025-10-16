@@ -1,0 +1,90 @@
+{
+  "version": "0.0.3",
+  "items":
+  [
+    {
+      "name": "6-34-22.pmtiles",
+      "url": "https://download.mapterhorn.com/6-34-22.pmtiles",
+      "md5sum": "ec8c3282936f939c158487a9b98f4da2",
+      "size": 106795055805,
+      "min_lon": 11.25,
+      "min_lat": 45.089035564831015,
+      "max_lon": 16.875,
+      "max_lat": 48.92249926375824,
+      "min_zoom": 13,
+      "max_zoom": 17
+    },
+    {
+      "name": "6-33-22.pmtiles",
+      "url": "https://download.mapterhorn.com/6-33-22.pmtiles",
+      "md5sum": "99356bf0f5d043f95e82ef63679a9405",
+      "size": 194296462142,
+      "min_lon": 5.625,
+      "min_lat": 45.089035564831015,
+      "max_lon": 11.25,
+      "max_lat": 48.92249926375824,
+      "min_zoom": 13,
+      "max_zoom": 17
+    },
+    {
+      "name": "6-33-21.pmtiles",
+      "url": "https://download.mapterhorn.com/6-33-21.pmtiles",
+      "md5sum": "438317da7a290f460cec875286500bf7",
+      "size": 36442354,
+      "min_lon": 5.625,
+      "min_lat": 48.92249926375824,
+      "max_lon": 11.25,
+      "max_lat": 52.48278022207821,
+      "min_zoom": 13,
+      "max_zoom": 13
+    },
+    {
+      "name": "6-34-21.pmtiles",
+      "url": "https://download.mapterhorn.com/6-34-21.pmtiles",
+      "md5sum": "63c2a24f9722d69d715f854cdd0b4b49",
+      "size": 107980103,
+      "min_lon": 11.25,
+      "min_lat": 48.92249926375824,
+      "max_lon": 16.875,
+      "max_lat": 52.48278022207821,
+      "min_zoom": 13,
+      "max_zoom": 13
+    },
+    {
+      "name": "6-35-22.pmtiles",
+      "url": "https://download.mapterhorn.com/6-35-22.pmtiles",
+      "md5sum": "dd7bdc2b93fb1142d2d46a3c3bf26072",
+      "size": 155447785,
+      "min_lon": 16.875,
+      "min_lat": 45.089035564831015,
+      "max_lon": 22.5,
+      "max_lat": 48.92249926375824,
+      "min_zoom": 13,
+      "max_zoom": 14
+    },
+    {
+      "name": "planet.pmtiles",
+      "url": "https://download.mapterhorn.com/planet.pmtiles",
+      "md5sum": "34863101a88dc9f3e8be9b98c968689a",
+      "size": 555834686608,
+      "min_lon": -180.0,
+      "min_lat": -85.0511287798066,
+      "max_lon": 180.0,
+      "max_lat": 85.0511287798066,
+      "min_zoom": 0,
+      "max_zoom": 12
+    },
+    {
+      "name": "6-35-21.pmtiles",
+      "url": "https://download.mapterhorn.com/6-35-21.pmtiles",
+      "md5sum": "59a4523785a97c02c0b6edcc0871aafe",
+      "size": 8219165,
+      "min_lon": 16.875,
+      "min_lat": 48.92249926375824,
+      "max_lon": 22.5,
+      "max_lat": 52.48278022207821,
+      "min_zoom": 13,
+      "max_zoom": 13
+    }
+  ]
+}
