@@ -8,9 +8,9 @@ This repo contains:
 
 Core idea: the world has a base coverage (e.g., z12), with many rectangular patches of higher zoom (e.g., z15 for a country, z18 for a mountain). We store those rectangles, grouped by zoom, compressed with deltas and varints. Querying checks high zooms first and short-circuits on the first hit.
 
-Note: This was created by GPT-5 High. I'm really impressed by it.
-I think this might be one of those well-defined, limited algorithmic questions where LLMs beat even competitive programmers.
-It definitely beat me, it'd have taken me weeks to come up with something like this.
+**Note**: This was created by GPT-5 High. I'm really impressed by it.
+I think this might be one of those well-defined, limited algorithmic problems where LLMs beat even competitive programmers.
+It definitely beat me, it'd have taken me weeks to even start studying this area, not even talking about an implementation.
 
 <details>
 <summary>Original input to LLM</summary>
