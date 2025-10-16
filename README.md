@@ -8,14 +8,13 @@ This repo contains:
 
 Core idea: the world has a base coverage (e.g., z12), with many rectangular patches of higher zoom (e.g., z15 for a country, z18 for a mountain). We store those rectangles, grouped by zoom, compressed with deltas and varints. Querying checks high zooms first and short-circuits on the first hit.
 
-**Note**: This was created by GPT-5 High. I'm really impressed by it.
-I think this might be one of those well-defined, limited algorithmic problems where LLMs beat even competitive programmers.
-It definitely beat me, it'd have taken me weeks to even start studying this area, not even talking about an implementation.
-The README was generated as well, but I edited it in sections.
+_**Note**: This whole repo was created by GPT-5 High. I'm really impressed by it. I think this might be one of those well-defined, limited algorithmic problems where LLMs can beat even competitive programmers. It definitely beat me; it would have taken me weeks to even start studying this area, let alone attempt an implementation. The README was also generated, but I edited parts of it._
 
 <details>
-<summary>Original input to LLM</summary>
 
+<summary>Original commands to LLM</summary>
+
+```
 design the following file format for the most space efficient as possible
 
 I have a global planet terrain map.
@@ -28,29 +27,26 @@ all of these are lat-lon bounding boxes, so everything is rectangular, there are
 design a datastructure and file format, which would let the viewer know exactly for a given lat-lon: what max zoom level is available for that specific point.
 
 basically all I need is a lat-lon -> zoom integer map, super space efficient.
+```
 
----
-
+```
 translate it to modern typescript
 
 write a node cli script as well, which takes this JSON file and converts it to this format
 
 {"version": "0.0.3", "items": [{"name": "6-34-22.pmtiles",....
+```
 
----
-
+```
 ok, now write the minimal ts implementation for a decoder, to be used in a maplibre environment
+```
 
----
-
+```
 ok, now write a README for this repo
 
 explain the whole theory, how does it work, and why was a given decision made
 explain the CLI script as well as the browser/maplibre helper
-
----
-
-Then I edited manually
+```
 
 </details>
 
