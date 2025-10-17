@@ -1,6 +1,7 @@
 # ZMJ: Zoom-Max JSON
 
 A tiny, human-readable JSON format that answers:
+
 - **What is the maximum available zoom at this lat/lon?**
 - **Which dataset provides that most-detailed coverage?**
 
@@ -21,15 +22,18 @@ ZMJ is radically simple for everyday developers. It stores a base zoom/dataset a
 ## How It Works
 
 The max zoom at a point is the maximum across:
+
 - A **base zoom** (global), plus a **base dataset** string
 - A set of **axis-aligned rectangles**, each with its own zoom and dataset string
 
 **Query algorithm:**
+
 1. Rectangles are scanned from highest zoom to lowest
 2. The first hit wins and returns `{zoom, dataset}`
 3. If no rectangle matches, return `{base_zoom, base_dataset}`
 
 **Coordinates:**
+
 - Stored as degrees (numbers)
 - Antimeridian is supported without splitting: if `min_lon > max_lon`, the rectangle wraps across ±180°
 
@@ -37,22 +41,22 @@ The max zoom at a point is the maximum across:
 
 ### Root Fields
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `base_zoom` | integer (0..255) | Global fallback zoom level |
-| `base_dataset` | string or null | Global dataset name/ID |
-| `rects` | array | List of rectangle entries |
+| Field          | Type             | Description                |
+| -------------- | ---------------- | -------------------------- |
+| `base_zoom`    | integer (0..255) | Global fallback zoom level |
+| `base_dataset` | string or null   | Global dataset name/ID     |
+| `rects`        | array            | List of rectangle entries  |
 
 ### Rectangle Entry
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `z` | integer (0..255) | Zoom level for this rectangle |
-| `dataset` | string | Dataset ID/name/slug for attribution |
-| `min_lat` | number | Minimum latitude in degrees |
-| `min_lon` | number | Minimum longitude in degrees |
-| `max_lat` | number | Maximum latitude in degrees |
-| `max_lon` | number | Maximum longitude in degrees |
+| Field     | Type             | Description                          |
+| --------- | ---------------- | ------------------------------------ |
+| `z`       | integer (0..255) | Zoom level for this rectangle        |
+| `dataset` | string           | Dataset ID/name/slug for attribution |
+| `min_lat` | number           | Minimum latitude in degrees          |
+| `min_lon` | number           | Minimum longitude in degrees         |
+| `max_lat` | number           | Maximum latitude in degrees          |
+| `max_lon` | number           | Maximum longitude in degrees         |
 
 **Note:** Bounds are inclusive. Antimeridian wrap is allowed if `min_lon > max_lon`.
 
@@ -114,7 +118,7 @@ Converts a PMTiles-style inventory into a ZMJ file.
     {
       "name": "6-34-22.pmtiles",
       "min_lon": 11.25,
-      "min_lat": 45.0890,
+      "min_lat": 45.089,
       "max_lon": 16.875,
       "max_lat": 48.9225,
       "min_zoom": 13,
@@ -174,17 +178,17 @@ readonly baseDataset: string | null
 #### Example Usage
 
 ```typescript
-import { ZMJ } from "./zmj-decoder";
+import { ZMJ } from './zmj-decoder'
 
 // Load from network
-const zmj = await ZMJ.fromUrl("/coverage.zmj.json");
+const zmj = await ZMJ.fromUrl('/coverage.zmj.json')
 
 // Query a point
-const result = zmj.query(47.5, 8.3);
-console.log(`Zoom: ${result.zoom}, Dataset: ${result.dataset}`);
+const result = zmj.query(47.5, 8.3)
+console.log(`Zoom: ${result.zoom}, Dataset: ${result.dataset}`)
 
 // Or just get the zoom
-const maxZoom = zmj.queryMaxZoom(47.5, 8.3);
+const maxZoom = zmj.queryMaxZoom(47.5, 8.3)
 ```
 
 ## Performance & Size Notes
@@ -198,6 +202,7 @@ const maxZoom = zmj.queryMaxZoom(47.5, 8.3);
 ### Antimeridian Handling
 
 If `min_lon > max_lon`, the rectangle wraps across ±180°:
+
 ```typescript
 // Decoder checks: (lon >= min_lon || lon <= max_lon)
 ```

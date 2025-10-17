@@ -1,1 +1,54 @@
-{"base_zoom":12,"base_dataset":"planet.pmtiles","rects":[{"z":17,"dataset":"6-34-22.pmtiles","min_lat":45.089,"min_lon":11.25,"max_lat":48.922,"max_lon":16.875},{"z":17,"dataset":"6-33-22.pmtiles","min_lat":45.089,"min_lon":5.625,"max_lat":48.922,"max_lon":11.25},{"z":14,"dataset":"6-35-22.pmtiles","min_lat":45.089,"min_lon":16.875,"max_lat":48.922,"max_lon":22.5},{"z":13,"dataset":"6-33-21.pmtiles","min_lat":48.922,"min_lon":5.625,"max_lat":52.483,"max_lon":11.25},{"z":13,"dataset":"6-34-21.pmtiles","min_lat":48.922,"min_lon":11.25,"max_lat":52.483,"max_lon":16.875},{"z":13,"dataset":"6-35-21.pmtiles","min_lat":48.922,"min_lon":16.875,"max_lat":52.483,"max_lon":22.5}]}
+{
+  "base_zoom": 12,
+  "base_dataset": "planet.pmtiles",
+  "rects": [
+    {
+      "z": 17,
+      "dataset": "6-34-22.pmtiles",
+      "min_lat": 45.089,
+      "min_lon": 11.25,
+      "max_lat": 48.922,
+      "max_lon": 16.875
+    },
+    {
+      "z": 17,
+      "dataset": "6-33-22.pmtiles",
+      "min_lat": 45.089,
+      "min_lon": 5.625,
+      "max_lat": 48.922,
+      "max_lon": 11.25
+    },
+    {
+      "z": 14,
+      "dataset": "6-35-22.pmtiles",
+      "min_lat": 45.089,
+      "min_lon": 16.875,
+      "max_lat": 48.922,
+      "max_lon": 22.5
+    },
+    {
+      "z": 13,
+      "dataset": "6-33-21.pmtiles",
+      "min_lat": 48.922,
+      "min_lon": 5.625,
+      "max_lat": 52.483,
+      "max_lon": 11.25
+    },
+    {
+      "z": 13,
+      "dataset": "6-34-21.pmtiles",
+      "min_lat": 48.922,
+      "min_lon": 11.25,
+      "max_lat": 52.483,
+      "max_lon": 16.875
+    },
+    {
+      "z": 13,
+      "dataset": "6-35-21.pmtiles",
+      "min_lat": 48.922,
+      "min_lon": 16.875,
+      "max_lat": 52.483,
+      "max_lon": 22.5
+    }
+  ]
+}

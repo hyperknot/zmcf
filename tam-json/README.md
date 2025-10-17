@@ -70,21 +70,23 @@ my questions:
 
 </details>
 
-
 # ZMSF: Zoom‑Max Simple Format
 
 A tiny, fixed-width binary that answers:
+
 - What is the maximum available zoom at this lat/lon?
 - Which dataset provides that most-detailed coverage?
 
 ZMSF is intentionally simple: one fixed-size record per rectangle, plus a string table for dataset IDs. No varints, no delta-encoding, no directories. It’s easy to read and debug, compresses well over HTTP, and short-circuits quickly during queries.
 
 Key properties
+
 - Small: ≈19 bytes per rectangle (before gzip/Brotli), plus a tiny dataset table.
 - Fast: scan rectangles in descending zoom; stop on the first match.
 - Simple: fixed-width integers; antimeridian rectangles are allowed without splitting.
 
 Typical use
+
 - Your app has a global base map (e.g., z12) and a few hundred rectangles where higher zoom is available (e.g., z15 for a country, z18 for a mountain).
 - You want to show the correct attribution for the dataset that provides the most detailed data at the cursor.
 
@@ -96,10 +98,11 @@ How it works
   - A base zoom (global), associated with a base dataset ID.
   - A set of axis-aligned rectangles, each with its own zoom and dataset ID.
 - Rectangles are scanned from highest zoom to lowest; the first hit wins.
-- Coordinates are quantized to microdegrees (int32 of deg * 1e6).
+- Coordinates are quantized to microdegrees (int32 of deg \* 1e6).
 - Antimeridian is supported without splitting: if minLonQ > maxLonQ, the rectangle wraps across ±180°.
 
 Query
+
 - Convert lat/lon to microdegrees (round).
 - For each rectangle in descending zoom:
   - If point is inside (with wrap-aware lon check), return {zoom, dataset}.
@@ -114,6 +117,7 @@ Binary format (ZMSF v1)
 - Antimeridian: if minLonQ > maxLonQ, the rectangle wraps
 
 Header (16 bytes total)
+
 - magic: 4 bytes = "ZMSF"
 - version: u8 = 1
 - base_zoom: u8
@@ -123,12 +127,14 @@ Header (16 bytes total)
 - base_dataset_id: u16 (0..dataset_count-1), or 0xFFFF if not provided
 
 Dataset table (dataset_count entries)
+
 - For each dataset:
   - name_len: u16
   - name: name_len bytes (UTF‑8)
 - Names can be short slugs (e.g., “planet” or “6-35-21”) or any text you want to surface in the UI.
 
 Records (rect_count entries; 19 bytes each)
+
 - z: u8 (zoom for this rectangle)
 - dataset_id: u16 (index into dataset table)
 - minLatQ: int32
@@ -156,24 +162,25 @@ Install and run (CLI)
 
 Input JSON schema (pmtiles-style):
 {
-  "version": "0.0.3",
-  "items": [
-    {
-      "name": "planet.pmtiles",
-      "min_lon": -180.0, "min_lat": -85.0511287798066,
-      "max_lon":  180.0, "max_lat":  85.0511287798066,
-      "min_zoom": 0, "max_zoom": 12
-    },
-    {
-      "name": "6-34-22.pmtiles",
-      "min_lon": 11.25, "min_lat": 45.0890,
-      "max_lon": 16.875,"max_lat": 48.9225,
-      "min_zoom": 13, "max_zoom": 17
-    }
-  ]
+"version": "0.0.3",
+"items": [
+{
+"name": "planet.pmtiles",
+"min_lon": -180.0, "min_lat": -85.0511287798066,
+"max_lon": 180.0, "max_lat": 85.0511287798066,
+"min_zoom": 0, "max_zoom": 12
+},
+{
+"name": "6-34-22.pmtiles",
+"min_lon": 11.25, "min_lat": 45.0890,
+"max_lon": 16.875,"max_lat": 48.9225,
+"min_zoom": 13, "max_zoom": 17
+}
+]
 }
 
 Packing policy
+
 - Base zoom is derived from a global item (covers full lon and WebMercator lat band). If none is found, fallback to min(max_zoom) across items, or use --base-zoom to override.
 - Every item with max_zoom > base_zoom becomes one rectangle at z = max_zoom.
 - dataset_id per rectangle is the index of the item’s name in the dataset table.
@@ -188,6 +195,7 @@ tsx zms-pack.ts example.json
 Browser / MapLibre helper
 
 Basic API
+
 - ZMSF.fromUrl(url: string): Promise<ZMSF>
 - ZMSF.fromArrayBuffer(ab: ArrayBuffer): ZMSF
 - zms.query(lat, lon): { zoom: number; datasetIndex: number; datasetId: string | null }
@@ -198,9 +206,9 @@ Basic API
 Example (pseudo)
 const zms = await ZMSF.fromUrl("/coverage.zms");
 map.on("mousemove", (e) => {
-  const r = zms.query(e.lngLat.lat, e.lngLat.lng);
-  ui.setAttribution(r.datasetId ?? "Unknown source");
-  ui.setMaxZoom(r.zoom);
+const r = zms.query(e.lngLat.lat, e.lngLat.lng);
+ui.setAttribution(r.datasetId ?? "Unknown source");
+ui.setMaxZoom(r.zoom);
 });
 
 ---
