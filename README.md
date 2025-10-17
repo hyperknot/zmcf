@@ -5,19 +5,17 @@ A tiny, human-readable JSON format that answers:
 - **What is the maximum available zoom at this lat/lon?**
 - **Which dataset provides that most-detailed coverage?**
 
-ZMJ is radically simple for everyday developers. It stores a base zoom/dataset and a few hundred rectangular overrides, each with a zoom and dataset ID string. No varints, no deltas, no directories. It compresses well over HTTP and is trivial to decode in the browser.
+It compresses well over HTTP and is trivial to decode in the browser.
 
 ## Key Properties
 
 - **Simple**: Plain JSON; one object per rectangle
 - **Fast**: Scan rectangles in descending zoom and return on the first hit
-- **Practical**: Antimeridian rectangles are supported without splitting
 
 ## Why Another Format?
 
 - You have a base map (e.g., z12) and some regions with higher zoom (z15 country, z18 mountain)
 - You want a precise, exact answer for "max zoom at point," plus attribution for the dataset providing it
-- You prefer code that's easy to read and maintain over micro-optimizations
 
 ## How It Works
 
@@ -65,25 +63,24 @@ The max zoom at a point is the maximum across:
 ```json
 {
   "base_zoom": 12,
-  "base_dataset": "planet.pmtiles",
+  "base_dataset": "planet",
   "rects": [
     {
       "z": 17,
-      "dataset": "6-34-22.pmtiles",
-      "min_lat": 45.0890356,
+      "dataset": "abc",
+      "min_lat": 45.089,
       "min_lon": 11.25,
-      "max_lat": 48.9224993,
+      "max_lat": 48.922,
       "max_lon": 16.875
     },
     {
-      "z": 14,
-      "dataset": "6-35-22.pmtiles",
-      "min_lat": 45.0890356,
-      "min_lon": 16.875,
-      "max_lat": 48.9224993,
-      "max_lon": 22.5
+      "z": 17,
+      "dataset": "def",
+      "min_lat": 45.089,
+      "min_lon": 5.625,
+      "max_lat": 48.922,
+      "max_lon": 11.25
     }
-  ]
 }
 ```
 
