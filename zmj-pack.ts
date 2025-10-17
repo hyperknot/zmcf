@@ -43,6 +43,10 @@ export type ZMJJson = {
  * Helpers
  * ------------------------ */
 
+function round3(n: number): number {
+  return Math.round(n * 1000) / 1000;
+}
+
 function approx(a: number, b: number, eps = 1e-6) { return Math.abs(a - b) <= eps; }
 
 function isGlobalItem(it: JsonItem): boolean {
@@ -86,15 +90,15 @@ export function buildZMJFromInventory(inv: JsonInventory, baseZoom: number, base
     const z = it.max_zoom|0;
     if (z <= baseZoom) continue;
     const dataset = it.name ?? "dataset";
-    const min_lat = Math.min(it.min_lat, it.max_lat);
-    const max_lat = Math.max(it.min_lat, it.max_lat);
+    const min_lat = round3(Math.min(it.min_lat, it.max_lat));
+    const max_lat = round3(Math.max(it.min_lat, it.max_lat));
     rects.push({
       z,
       dataset,
       min_lat,
-      min_lon: it.min_lon,
+      min_lon: round3(it.min_lon),
       max_lat,
-      max_lon: it.max_lon
+      max_lon: round3(it.max_lon)
     });
   }
   rects.sort((a, b) => b.z - a.z);
