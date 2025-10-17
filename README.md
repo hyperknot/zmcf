@@ -33,7 +33,6 @@ The max zoom at a point is the maximum across:
 **Coordinates:**
 
 - Stored as degrees (numbers)
-- Antimeridian is supported without splitting: if `min_lon > max_lon`, the rectangle wraps across ±180°
 
 ## File Format
 
@@ -55,8 +54,6 @@ The max zoom at a point is the maximum across:
 | `min_lon` | number           | Minimum longitude in degrees         |
 | `max_lat` | number           | Maximum latitude in degrees          |
 | `max_lon` | number           | Maximum longitude in degrees         |
-
-**Note:** Bounds are inclusive. Antimeridian wrap is allowed if `min_lon > max_lon`.
 
 ### Example
 
@@ -87,43 +84,13 @@ The max zoom at a point is the maximum across:
 ## Design Decisions
 
 - **JSON over binary**: Human-friendly; gzip/Brotli makes it small enough for hundreds to thousands of rectangles
-- **String dataset IDs inline**: No separate lookup table; simpler attribution handling
 - **No index**: Linear scan is extremely fast at these sizes and easy to reason about
-- **Antimeridian without splitting**: Keep `min_lon > max_lon` for wrapped rectangles; decoder handles it
 
 ## Installation & Usage
 
 ### Node CLI: `zmj-pack.ts`
 
-Converts a PMTiles-style inventory into a ZMJ file.
-
-#### Input Format
-
-```json
-{
-  "version": "0.0.3",
-  "items": [
-    {
-      "name": "planet.pmtiles",
-      "min_lon": -180.0,
-      "min_lat": -85.0511287798066,
-      "max_lon": 180.0,
-      "max_lat": 85.0511287798066,
-      "min_zoom": 0,
-      "max_zoom": 12
-    },
-    {
-      "name": "6-34-22.pmtiles",
-      "min_lon": 11.25,
-      "min_lat": 45.089,
-      "max_lon": 16.875,
-      "max_lat": 48.9225,
-      "min_zoom": 13,
-      "max_zoom": 17
-    }
-  ]
-}
-```
+Converts a Mapterhorn-style inventory into a ZMJ file.
 
 #### Packing Policy
 
@@ -136,14 +103,7 @@ Converts a PMTiles-style inventory into a ZMJ file.
 #### Run
 
 ```bash
-# With tsx
 tsx zmj-pack.ts inventory.json [output.zmj.json] [--base-zoom N]
-
-# With ts-node
-npx ts-node zmj-pack.ts inventory.json [output.zmj.json] [--base-zoom N]
-
-# With Node.js (if transpiled)
-node zmj-pack.js inventory.json output.zmj.json --base-zoom 10
 ```
 
 ### Browser / MapLibre: `zmj-decoder.ts`
@@ -200,37 +160,17 @@ const maxZoom = zmj.queryMaxZoom(47.5, 8.3)
 
 If `min_lon > max_lon`, the rectangle wraps across ±180°:
 
-```typescript
-// Decoder checks: (lon >= min_lon || lon <= max_lon)
-```
-
 ### Bounds
 
 - **Inclusive**: Points on edges are considered inside
 - **Latitude normalization**: Encoder ensures `min_lat <= max_lat`
 - **Longitude order**: Preserved to maintain wrap behavior
 
-## When NOT to Use ZMJ
-
-- ❌ Compact binary required for extremely constrained bandwidth and millions of rectangles
-- ❌ You need polygons or angled shapes (rectangles-only may be insufficient)
-- ❌ Sub-millisecond query time is critical with tens of thousands of rectangles
-
-## Tips for Serving
-
-- ✅ Serve with **gzip/Brotli compression**
-- ✅ Use a **stable dataset string** that your UI can map to full attribution text
-- ✅ Set appropriate **cache headers** for static files
-
 ## FAQ
 
 ### Why JSON not binary?
 
 For **simplicity and maintainability**. For the target sizes (hundreds to thousands of rectangles), decode speed is excellent and compressed sizes remain small.
-
-### Why store dataset strings per rectangle?
-
-Easiest way to display attribution without indirection. For many datasets with repeated names, HTTP compression eliminates redundancy.
 
 ### Can I use this with Leaflet/OpenLayers?
 
@@ -240,21 +180,8 @@ Yes! The decoder is framework-agnostic. Just call `zmj.queryMaxZoom(lat, lon)` t
 
 The `dataset` string returned by `query()` can be used as a key to look up full attribution text in your app.
 
-## Repository Layout
-
-```
-zmj-pack.ts       - Node/TypeScript CLI + encoder for .zmj.json files
-zmj-decoder.ts    - Minimal browser decoder for MapLibre/web apps
-README.md         - This file
-```
 
 ## License
 
 MIT. Contributions welcome.
 
-## Contributing
-
-- Keep it simple
-- Maintain backward compatibility
-- Add tests for edge cases (especially antimeridian)
-- Update README for any API changes
