@@ -78,6 +78,7 @@ The max zoom at a point is the maximum across:
       "max_lat": 48.922,
       "max_lon": 11.25
     }
+  ]
 }
 ```
 
@@ -180,8 +181,6 @@ Yes! The decoder is framework-agnostic. Just call `zmj.queryMaxZoom(lat, lon)` t
 
 The `dataset` string returned by `query()` can be used as a key to look up full attribution text in your app.
 
-
 ## License
 
 MIT. Contributions welcome.
-
